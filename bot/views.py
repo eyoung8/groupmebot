@@ -29,6 +29,7 @@ def handle_command(bot, command, text):
 @csrf_exempt
 def get_message(request):
     logger.info("in")
+    logger.info(request.POST)
     if request.POST:
         logger.info("in2")
         group_id = request.POST.get("group_id")
