@@ -16,7 +16,9 @@ def handle_command(bot, command, text):
         bot_help(bot)
     else:
         try:
+            print(command)
             bot_response = BotResponse.objects.get(bot=bot, command=command).response
+            print(bot_response)
             send_response(bot, bot_response)
         except:
             pass
