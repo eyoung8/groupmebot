@@ -30,6 +30,7 @@ def handle_command(bot, command, text):
 def get_message(request):
     logger.info("in")
     logger.info(request.POST)
+    logger.info(request.POST.get("text"))
     if request.POST:
         logger.info("in2")
         group_id = request.POST.get("group_id")
