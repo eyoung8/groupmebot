@@ -3,6 +3,8 @@ from django.shortcuts import render
 from .util import send_response
 from django.views.decorators.csrf import csrf_exempt
 import logging
+import json
+
 logger = logging.getLogger('testlogger')
 # Create your views here.
 
@@ -29,14 +31,15 @@ def handle_command(bot, command, text):
 @csrf_exempt
 def get_message(request):
     logger.info("in")
-    logger.info(request.POST)
-    logger.info(request.POST.get("text"))
-    if request.POST:
+
+    if request.method == "POST":
         logger.info("in2")
-        group_id = request.POST.get("group_id")
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        group_id = body["group_id"]
         try:
             bot = Bot.objects.get(group_id=group_id)
-            text = request.POST.get("text")
+            text = body["text"]
             logger.info(bot.name)
             if text and text[0] == "/":
                 logger.info("found command")
