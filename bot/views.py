@@ -27,7 +27,7 @@ def new_command(bot, text):
         send_response(bot.bot_id, "command {} successfully created".format(command))
         logger.info("response sent to group")
 
-def help(bot, host):
+def bot_help(bot, host):
     logger.info("in help")
     help_url = host + bot.get_absolute_url()
     logger.info("got help_url= " + help_url)
