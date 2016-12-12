@@ -38,8 +38,11 @@ def get_message(request):
         body = json.loads(body_unicode)
         group_id = body["group_id"]
         try:
+            logger.info("try1")
             bot = Bot.objects.get(group_id=group_id)
+            logger.info("try2")
             text = body["text"]
+            logger.info("try3")
             logger.info(bot.name)
             if text and text[0] == "/":
                 logger.info("found command")
