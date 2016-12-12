@@ -72,7 +72,7 @@ def get_message(request):
                 logger.info("split_text= " + split_text)
                 command = split_text[0]
                 handle_command(bot, command, split_text[1:])
-        except:
-            logger.info("except")
+        except Exception as err:
+            logger.info("except1 + " + err)
             pass
     return HttpResponse("don't come here")
