@@ -1,4 +1,7 @@
+from django.core.exceptions import ValidationError
 from django.db import models
+import logging
+logger = logging.getLogger('testlogger')
 
 # Create your models here.
 
@@ -22,8 +25,20 @@ class BotResponse(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     bot = models.ForeignKey(Bot, on_delete=models.CASCADE, blank=False, null=False)
 
+    def save(self, *args, **kwargs):
+        logger.info("Entering BotResponse save")
+        qs = BotResponse.objects.filter(command__iexact=self.command)
+            .filter(bot__exact=self.bot)
+        logger.info("Got query set")
+        if qs.count == 0:
+            logger.info("Query set count = 0")
+            super(BotResponse, self).save(*args, **kwargs)
+            logger.info("BotResponse saved")
+        else:
+            logger.info("Raising validation error")
+            raise ValidationError
+
     class Meta:
         ordering = ["-timestamp", "-updated"]
-        unique_together = ('command', 'bot')
     def __str__(self):
         return "command: {} , response: {}".format(self.command,self.response)
