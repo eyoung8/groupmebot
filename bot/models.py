@@ -23,19 +23,19 @@ class BotResponse(models.Model):
     response = models.CharField(max_length=1000, unique=False, blank=False)
     updated   = models.DateTimeField(auto_now=True)
     timestamp = models.DateTimeField(auto_now_add=True)
-    bot = models.ForeignKey(Bot, on_delete=models.CASCADE, blank=False, null=False)
+    bot = models.ForeignKey(Bot, on_delete=models.CASCADE, unique=False, blank=False, null=False)
 
     def save(self, *args, **kwargs):
         logger.info("Entering BotResponse save")
-        qs = BotResponse.objects.filter(command__iexact=self.command).filter(bot__exact=self.bot)
-        logger.info("Got query set")
-        if qs.count == 0:
-            logger.info("Query set count = 0")
-            super(BotResponse, self).save(*args, **kwargs)
-            logger.info("BotResponse saved")
-        else:
+        qs = BotResponse.objects.filter(command__iexact=self.command).filter(bot__id__iexact=self.bot.id)
+        logger.info("Got queryset")
+        if qs.exists():
             logger.info("Raising validation error")
             raise ValidationError
+        else:
+            logger.info("Saving")
+            super(BotResponse, self).save(*args, **kwargs)
+            logger.info("BotResponse saved")
 
     class Meta:
         ordering = ["-timestamp", "-updated"]
