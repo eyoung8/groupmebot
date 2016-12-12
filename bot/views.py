@@ -1,6 +1,8 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from .util import send_response
+import logging
+logger = logging.getLogger('testlogger')
 # Create your views here.
 
 def new_command(bot, text):
@@ -16,26 +18,28 @@ def handle_command(bot, command, text):
         bot_help(bot)
     else:
         try:
-            print(command)
+            logger.info(command)
             bot_response = BotResponse.objects.get(bot=bot, command=command).response
-            print(bot_response)
+            logger.info(bot_response)
             send_response(bot, bot_response)
         except:
             pass
 
 def get_message(request):
-    print("in")
+    logger.info("in")
     if request.POST:
-        print("in2")
+        logger.info("in2")
         group_id = request.POST.get("group_id")
         try:
             bot = Bot.objects.get(group_id=group_id)
             text = request.POST.get("text")
+            logger.info(bot.name)
             if text and text[0] == "/":
+                logger.info("found command")
                 split_text = text.split()
                 command = split_text[0]
                 handle_command(bot, command, split_text[1:])
         except:
-            print("except")
+            logger.info("except")
             pass
     return HttpResponse("don't come here")
