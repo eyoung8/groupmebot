@@ -24,6 +24,6 @@ class BotResponse(models.Model):
 
     class Meta:
         ordering = ["-timestamp", "-updated"]
-        unique_together = ('command', 'bot',)
+        unique_together = ('command', 'bot')
     def __str__(self):
         return "command: {} , response: {}".format(self.command,self.response)

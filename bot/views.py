@@ -27,6 +27,7 @@ def handle_command(bot, command, text):
             logger.info(bot_response)
             send_response(bot.bot_id, bot_response)
         except:
+            logger.info("except2")
             pass
 
 @csrf_exempt
