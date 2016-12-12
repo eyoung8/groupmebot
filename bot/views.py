@@ -10,6 +10,7 @@ logger = logging.getLogger('testlogger')
 # Create your views here.
 
 def new_command(bot, text):
+    logger.info("text=" + text)
     split_text = text.split()
     logger.info(split_text)
     response = split_text[1:]
@@ -26,7 +27,7 @@ def new_command(bot, text):
         logger.info("new BotResponse saved")
         send_response(bot.bot_id, "command {} successfully created".format(command))
         logger.info("response sent to group")
-        
+
 def help(bot):
     pass
 
