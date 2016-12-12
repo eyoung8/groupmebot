@@ -10,6 +10,7 @@ logger = logging.getLogger('testlogger')
 # Create your views here.
 
 def new_command(bot, text):
+    logger.info("entering new_command")
     logger.info("text=" + text)
     split_text = text.split()
     logger.info(split_text)
@@ -46,7 +47,7 @@ def handle_command(bot, command, text):
             send_response(bot.bot_id, bot_response)
         except:
             logger.info("except2")
-            pass
+            
 
 @csrf_exempt
 def get_message(request):
