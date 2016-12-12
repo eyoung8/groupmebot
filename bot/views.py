@@ -24,7 +24,8 @@ def handle_command(bot, command, text):
             send_response(bot, bot_response)
         except:
             pass
-
+            
+@csrf_exempt
 def get_message(request):
     logger.info("in")
     if request.POST:
