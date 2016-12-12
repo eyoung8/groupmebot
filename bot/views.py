@@ -37,6 +37,7 @@ def get_message(request):
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
         group_id = body["group_id"]
+        logger.info(group_id)
         try:
             logger.info("try1")
             bot = Bot.objects.get(group_id=group_id)
