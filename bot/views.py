@@ -12,8 +12,6 @@ logger = logging.getLogger('testlogger')
 def new_command(bot, text):
     logger.info("entering new_command")
     logger.info(type(text))
-    logger.info("text=" + text)
-    logger.info(split_text)
     response = ' '.join(text[1:])
     logger.info(response)
     command = text[0]
