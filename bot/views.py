@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from .util import send_response
+from django.views.decorators.csrf import csrf_exempt
 import logging
 logger = logging.getLogger('testlogger')
 # Create your views here.
@@ -24,7 +25,7 @@ def handle_command(bot, command, text):
             send_response(bot, bot_response)
         except:
             pass
-            
+
 @csrf_exempt
 def get_message(request):
     logger.info("in")
