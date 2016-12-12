@@ -24,7 +24,9 @@ def handle_command(bot, command, text):
             pass
 
 def get_message(request):
+    print("in")
     if request.POST:
+        print("in2")
         group_id = request.POST.get("group_id")
         try:
             bot = Bot.objects.get(group_id=group_id)
@@ -34,5 +36,6 @@ def get_message(request):
                 command = split_text[0]
                 handle_command(bot, command, split_text[1:])
         except:
+            print("except")
             pass
     return HttpResponse("don't come here")
