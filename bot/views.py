@@ -25,7 +25,7 @@ def handle_command(bot, command, text):
             logger.info(command)
             bot_response = BotResponse.objects.get(bot=bot, command=command).response
             logger.info(bot_response)
-            send_response(bot, bot_response)
+            send_response(bot.bot_id, bot_response)
         except:
             pass
 
