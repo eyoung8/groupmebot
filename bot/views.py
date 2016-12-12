@@ -73,3 +73,23 @@ def get_message(request):
             logger.info("except1")
             
     return HttpResponse("don't come here")
+
+def bot_detail(request, group_id):
+    try:
+        bot_name = Bot.objects.get(group_id=group_id).name
+        responses = BotResponse.objects.filter(bot__group_id__iexact=group_id)
+        built_ins = [("/new" , "Create a new command by sending '/new /{new_command} {new command response}'"),
+                   ("/help", "Gives a url to the bot's help page")]
+        context = {"bot_name"  : bot_name,
+                   "responses" : responses,
+                   "built_ins"  : built_ins,
+                    }
+        return render(request, "bot_detail.html", context)
+
+    except:
+        return HttpResponse("Bot does not exist")
+
+
+
+
+

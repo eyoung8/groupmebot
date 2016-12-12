@@ -1,0 +1,14 @@
+<h1>{{ bot_name }}</h1>
+<h2><b>Commands:</b></h2>
+<h3>Built In:</h3>
+<p>
+{% for pair in built_ins %}
+    {{ pair.0 }} : {{ pair.1 }} </br>
+{% endfor %}
+</p>
+<h3>Custom:</h3>
+<p>
+{% for response in responses %}
+    {{ response.command }} : {{ response.response }} </br>
+{% endfor %}
+</p>
