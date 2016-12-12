@@ -11,22 +11,31 @@ logger = logging.getLogger('testlogger')
 
 def new_command(bot, text):
     split_text = text.split()
+    logger.info(split_text)
     response = split_text[1:]
+    logger.info(response)
     command = split_text[0]
+    logger.info(command)
     if not command[0]=="/":
+        logger.info("incorrectly formated new command")
         send_response(bot.bot_id, "command must begin with /")
     else:
+        logger.info("correctly formatted new command")
         br = BotResponse(command=command, response=response, bot=bot)
         br.save()
+        logger.info("new BotResponse saved")
         send_response(bot.bot_id, "command {} successfully created".format(command))
-
+        logger.info("response sent to group")
+        
 def help(bot):
     pass
 
 def handle_command(bot, command, text):
     if command == "/new":
+        logger.info("command=/new")
         new_command(bot, text)
     elif command == "/help":
+        logger.info("command=/help")
         bot_help(bot)
     else:
         try:
