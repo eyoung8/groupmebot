@@ -10,7 +10,14 @@ logger = logging.getLogger('testlogger')
 # Create your views here.
 
 def new_command(bot, text):
-    pass
+    split_text = text.split()
+    response = split_text[1:]
+    command = split_text[0]
+    if not command[0]=="/":
+        send_response(bot.bot_id, "command must begin with /")
+    else:
+        br = BotResponse(command=command, response=response, bot=bot)
+        send_response(bot.bot_id, "command {} successfully created".format(command))
 
 def help(bot):
     pass
