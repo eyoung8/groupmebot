@@ -70,7 +70,6 @@ def get_message(request):
             if text and text[0] == "/":
                 logger.info("found command")
                 split_text = text.split()
-                logger.info("split_text= " + split_text)
                 command = split_text[0]
                 handle_command(bot, command, split_text[1:])
         except:
