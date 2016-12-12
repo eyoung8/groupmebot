@@ -17,6 +17,7 @@ def new_command(bot, text):
         send_response(bot.bot_id, "command must begin with /")
     else:
         br = BotResponse(command=command, response=response, bot=bot)
+        br.save()
         send_response(bot.bot_id, "command {} successfully created".format(command))
 
 def help(bot):
