@@ -16,7 +16,7 @@ class Bot(models.Model):
         return self.name
 
 class BotResponse(models.Model):
-    command = models.CharField(max_length=100, unique=True, blank=False)
+    command = models.CharField(max_length=100, unique=False, blank=False)
     response = models.CharField(max_length=1000, unique=False, blank=False)
     updated   = models.DateTimeField(auto_now=True)
     timestamp = models.DateTimeField(auto_now_add=True)
