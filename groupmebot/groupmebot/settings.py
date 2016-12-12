@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '0ujwu2iue&m2!hcj@6-a2bdljy2fzngs9j)l0xq^pr)9vd&(rn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ["https://infinite-sierra-22679.herokuapp.com/ ","infinite-sierra-22679.herokuapp.com/ "]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
