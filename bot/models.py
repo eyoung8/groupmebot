@@ -27,7 +27,7 @@ class BotResponse(models.Model):
 
     def save(self, *args, **kwargs):
         logger.info("Entering BotResponse save")
-        qs = BotResponse.objects.filter(command__iexact=self.command).filter(bot__id__iexact=self.bot.id)
+        qs = BotResponse.objects.filter(command__iexact=self.command).filter(bot__bot__id__iexact=self.bot.id)
         logger.info("Got queryset")
         logger.info(qs)
         if qs.exists():
