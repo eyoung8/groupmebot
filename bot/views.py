@@ -11,6 +11,7 @@ logger = logging.getLogger('testlogger')
 
 def new_command(bot, text):
     logger.info("entering new_command")
+    logger.info(type(text))
     logger.info("text=" + text)
     split_text = text.split()
     logger.info(split_text)
@@ -72,7 +73,7 @@ def get_message(request):
                 logger.info("split_text= " + split_text)
                 command = split_text[0]
                 handle_command(bot, command, split_text[1:])
-        except Exception as err:
-            logger.info("except1 + " + err)
-            pass
+        except:
+            logger.info("except1")
+            
     return HttpResponse("don't come here")
