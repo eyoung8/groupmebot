@@ -27,18 +27,18 @@ def new_command(bot, text):
         send_response(bot.bot_id, "command {} successfully created".format(command))
         logger.info("response sent to group")
 
-def help(bot):
-    help_url = bot.get_absolut_url()
+def help(bot, host):
+    help_url = host + bot.get_absolute_url()
     send_response(bot.bot_id, help_url)
     
 
-def handle_command(bot, command, text):
+def handle_command(bot, command, text, host):
     if command == "/new":
         logger.info("command=/new")
         new_command(bot, text)
     elif command == "/help":
         logger.info("command=/help")
-        bot_help(bot)
+        bot_help(bot, host)
     else:
         try:
             logger.info(command)
@@ -52,7 +52,7 @@ def handle_command(bot, command, text):
 @csrf_exempt
 def get_message(request):
     logger.info("in")
-
+    host = request.get_host()
     if request.method == "POST":
         logger.info("in2")
         body_unicode = request.body.decode('utf-8')
@@ -70,7 +70,7 @@ def get_message(request):
                 logger.info("found command")
                 split_text = text.split()
                 command = split_text[0]
-                handle_command(bot, command, split_text[1:])
+                handle_command(bot, command, split_text[1:], host)
         except:
             logger.info("except1")
             
@@ -78,13 +78,13 @@ def get_message(request):
 
 def bot_detail(request, group_id):
     try:
-        bot_name = Bot.objects.get(group_id=group_id).name
+        bot = Bot.objects.get(group_id=group_id)
         responses = BotResponse.objects.filter(bot__group_id__iexact=group_id)
         built_ins = [("/new" , "Create a new command by sending '/new /{new_command} {new command response}'"),
                    ("/help", "Gives a url to the bot's help page")]
-        context = {"bot_name"  : bot_name,
+        context = {"bot_name"  : bot.name,
                    "responses" : responses,
-                   "built_ins"  : built_ins,
+                   "built_ins" : built_ins,
                     }
         return render(request, "bot_detail.html", context)
 

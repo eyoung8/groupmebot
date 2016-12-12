@@ -2,7 +2,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 import logging
 logger = logging.getLogger('testlogger')
-from django.contrib.sites.shortcuts import get_current_site
+from django.core.urlresolvers import reverse
 
 # Create your models here.
 
@@ -17,9 +17,7 @@ class Bot(models.Model):
         ordering = ["-timestamp", "-updated"]
 
     def get_absolute_url(self):
-        request = None
-        full_url = ''.join(['http://', get_current_site(request).domain, '/bot/',self.group_id])
-        return full_url
+       return reverse("bot:detail",kwargs = {"group_id": self.group_id})
 
     def __str__(self):
         return self.name
