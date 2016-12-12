@@ -27,11 +27,13 @@ class BotResponse(models.Model):
 
     def save(self, *args, **kwargs):
         logger.info("Entering BotResponse save")
-        qs = BotResponse.objects.filter(command__iexact=self.command).filter(bot__bot__id__iexact=self.bot.id)
-        logger.info("Got queryset")
-        logger.info(qs)
-        if qs.exists():
-            logger.info("Raising validation error")
+        exists = False
+        try:
+            BotResponse.objects.get(command=self.command, bot=self.bot)
+            exists = True
+        except:
+            pass
+        if exists:
             raise ValidationError
         else:
             logger.info("Saving")
