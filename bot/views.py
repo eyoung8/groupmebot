@@ -17,7 +17,7 @@ def new_command(bot, text):
     command = text[0]
     logger.info(command)
     if not command[0]=="/":
-        logger.info("incorrectly formated new command")
+        logger.info("incorrectly formatted new command")
         send_response(bot.bot_id, "command must begin with /")
     else:
         logger.info("correctly formatted new command")
