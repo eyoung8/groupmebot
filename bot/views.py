@@ -28,7 +28,9 @@ def new_command(bot, text):
         logger.info("response sent to group")
 
 def help(bot):
-    pass
+    help_url = bot.get_absolut_url()
+    send_response(bot.bot_id, help_url)
+    
 
 def handle_command(bot, command, text):
     if command == "/new":
