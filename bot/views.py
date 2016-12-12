@@ -13,11 +13,10 @@ def new_command(bot, text):
     logger.info("entering new_command")
     logger.info(type(text))
     logger.info("text=" + text)
-    split_text = text.split()
     logger.info(split_text)
-    response = split_text[1:]
+    response = ' '.join(text[1:])
     logger.info(response)
-    command = split_text[0]
+    command = text[0]
     logger.info(command)
     if not command[0]=="/":
         logger.info("incorrectly formated new command")
