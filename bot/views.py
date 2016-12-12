@@ -29,7 +29,7 @@ def new_command(bot, text):
 
 def bot_help(bot, host):
     logger.info("in help")
-    help_url = host + bot.get_absolute_url()
+    help_url ="".join("https://", host, bot.get_absolute_url())
     logger.info("got help_url= " + help_url)
     send_response(bot.bot_id, help_url)
     
