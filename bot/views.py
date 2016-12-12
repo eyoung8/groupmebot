@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from .models import Bot, BotResponse
 from .util import send_response
 from django.views.decorators.csrf import csrf_exempt
 import logging
