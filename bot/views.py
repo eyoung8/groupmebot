@@ -95,7 +95,7 @@ def handle_command(bot, command, text, host):
     elif command == "/edit":
         logger.info("command=" + command)
         edit_bot(bot,text)
-    elif command == "random":
+    elif command == "/random":
         logger.info("command=" + command)
         rand(bot, text)
     elif command == "/newrand":
