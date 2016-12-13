@@ -32,7 +32,26 @@ def bot_help(bot, host):
     help_url ="".join(["https://", host, bot.get_absolute_url()])
     logger.info("got help_url= " + help_url)
     send_response(bot.bot_id, help_url)
-    
+ 
+def delete_bot_response(bot, text):
+    logger.info("entering delete bot response")
+    command = text[0]
+    logger.info("command found: " + command)
+    try:
+        bot_response = BotResponse.objects.get(command=command, bot=bot)
+        logger.info("BotResponse object found")
+        bot_response.delete()
+        logger.info("BotResponse object deleted")
+        send_response(bot.bot_id,"Command {} successfully deleted".format(command))
+        logger.info("Messaged chat")
+    except:
+        logger.info("delete exception")
+        send_response(bot.bot_id, "Command not found or issue deleting command")
+
+def edit_bot(bot, text):
+    logger.info("entering edit")
+    delete_bot_response(bot, text)
+    new_command(bot, text)
 
 def handle_command(bot, command, text, host):
     if command == "/new":
@@ -41,6 +60,12 @@ def handle_command(bot, command, text, host):
     elif command == "/help":
         logger.info("command=/help")
         bot_help(bot, host)
+    elif command == "/delete":
+        logger.info("command=/delete")
+        delete_bot_response(bot, text)
+    elif command == "/edit":
+        logger.info("command=/edit")
+        edit_bot(bot,text)
     else:
         try:
             logger.info(command)
@@ -48,7 +73,7 @@ def handle_command(bot, command, text, host):
             logger.info(bot_response)
             send_response(bot.bot_id, bot_response)
         except:
-            logger.info("except2")
+            logger.info("handle_command exception")
             
 
 @csrf_exempt
@@ -74,7 +99,7 @@ def get_message(request):
                 command = split_text[0]
                 handle_command(bot, command, split_text[1:], host)
         except:
-            logger.info("except1")
+            logger.info("get_message exception")
             
     return HttpResponse("don't come here")
 
