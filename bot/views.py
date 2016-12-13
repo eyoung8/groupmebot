@@ -48,6 +48,7 @@ def rand(bot, text):
     try:
         qs = MultipleResponse.objects.filter(bot__id__iexact=bot.bot_id).filter(command__iexact=command).order_by('?')
         logger.info("Got queryset")
+        logger.info(qs)
         response = qs[0].response
         logger.info("Got response: " + response)
         send_response(bot.bot_id, responses)
