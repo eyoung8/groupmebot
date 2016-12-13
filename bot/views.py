@@ -52,7 +52,7 @@ def rand(bot, text):
         if qs.count() > 0:
             response = qs[0].response
             logger.info("Got response: " + response)
-            send_response(bot.bot_id, responses)
+            send_response(bot.bot_id, response)
             logger.info("Response sent")
         else:
             send_response(bot.bot_id, "command {} not found".format(command))
