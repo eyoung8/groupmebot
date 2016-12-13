@@ -28,6 +28,30 @@ def new_command(bot, text):
         send_response(bot.bot_id, "command {} successfully created".format(command))
         logger.info("response sent to group")
 
+def new_rand_command(bot, text):
+    logger.info("entering new_rand_command")
+    response = ' '.join(text[1:])
+    logger.info(response)
+    command = text[0]
+    logger.info(command)
+
+    br = MultipleResponse(command=command, response=response, bot=bot)
+    br.save()
+    logger.info("new BotResponse saved")
+    send_response(bot.bot_id, "random command {} successfully created".format(command))
+    logger.info("response sent to group")
+
+def rand(bot, text):
+    logger.info("entering rand")
+    command = text[0]
+    logger.info("Determined command: " + command)
+    qs = MultipleResponse.objects.filter(bot__id__iexact=bot.bot_id).filter(command__iexact=command).order_by('?')
+    logger.info("Got queryset")
+    response = qs[0].response
+    logger.info("Got response: " + response)
+    send_response(bot.bot_id, responses)
+    logger.info("Response sent")
+
 def bot_help(bot, host):
     logger.info("in help")
     help_url ="".join(["https://", host, bot.get_absolute_url()])
@@ -71,6 +95,7 @@ def handle_command(bot, command, text, host):
     elif command == "/edit":
         logger.info("command=/edit")
         edit_bot(bot,text)
+    elif command == "random"
     else:
         try:
             logger.info(command)
