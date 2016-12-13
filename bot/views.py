@@ -1,3 +1,4 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
 from django.shortcuts import render
 from .models import Bot, BotResponse
@@ -37,21 +38,25 @@ def delete_bot_response(bot, text):
     logger.info("entering delete bot response")
     command = text[0]
     logger.info("command found: " + command)
+    deleted = False
     try:
         bot_response = BotResponse.objects.get(command=command, bot=bot)
         logger.info("BotResponse object found")
         bot_response.delete()
+        deleted = True
         logger.info("BotResponse object deleted")
         send_response(bot.bot_id,"Command {} successfully deleted".format(command))
         logger.info("Messaged chat")
     except:
         logger.info("delete exception")
         send_response(bot.bot_id, "Command not found or issue deleting command")
+    return deleted
 
 def edit_bot(bot, text):
     logger.info("entering edit")
-    delete_bot_response(bot, text)
-    new_command(bot, text)
+    deleted = delete_bot_response(bot, text)
+    if deleted:
+        new_command(bot, text)
 
 def handle_command(bot, command, text, host):
     if command == "/new":
