@@ -46,13 +46,16 @@ def rand(bot, text):
     command = text[0]
     logger.info("Determined command: " + command)
     try:
-        qs = MultipleResponse.objects.filter(bot__id__iexact=bot.bot_id).filter(command__iexact=command).order_by('?')
+        qs = MultipleResponse.objects.filter(bot=bot, command=command).order_by('?')
         logger.info("Got queryset")
         logger.info(qs)
-        response = qs[0].response
-        logger.info("Got response: " + response)
-        send_response(bot.bot_id, responses)
-        logger.info("Response sent")
+        if qs.count() > 0:
+            response = qs[0].response
+            logger.info("Got response: " + response)
+            send_response(bot.bot_id, responses)
+            logger.info("Response sent")
+        else:
+            send_response(bot.bot_id, "command {} not found".format(command))
     except:
         logger.info("queryset failed")
 
