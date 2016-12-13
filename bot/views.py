@@ -152,7 +152,9 @@ def bot_detail(request, group_id):
         built_ins = [("/new" ,   "Create a new command by sending '/new /{new_command} {new command response}'"),
                      ("/help",   "Gives a url to the bot's help page"),
                      ("/edit",   "Edits an existing command in the format '/edit /{existing_command} {new command response}'"),
-                     ("/delete", "Deletes an existing command in the format '/delete /{existing_command}'"),]
+                     ("/delete", "Deletes an existing command in the format '/delete /{existing_command}'"),
+                     ("/newrand","Creates a new command in the same format of /new but /newrand commands have multiple responses that are randomly selected"),
+                     ("/random", "Calls a random /newrand command in the format '/random {newrand_command}'"),]
         context = {"bot_name"  : bot.name,
                    "responses" : responses,
                    "built_ins" : built_ins,
