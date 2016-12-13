@@ -84,18 +84,23 @@ def edit_bot(bot, text):
 
 def handle_command(bot, command, text, host):
     if command == "/new":
-        logger.info("command=/new")
+        logger.info("command=" + command)
         new_command(bot, text)
     elif command == "/help":
-        logger.info("command=/help")
+        logger.info("command=" + command)
         bot_help(bot, host)
     elif command == "/delete":
-        logger.info("command=/delete")
+        logger.info("command=" + command)
         delete_bot_response(bot, text)
     elif command == "/edit":
-        logger.info("command=/edit")
+        logger.info("command=" + command)
         edit_bot(bot,text)
-    elif command == "random"
+    elif command == "random":
+        logger.info("command=" + command)
+        rand(bot, text)
+    elif command == "/newrand":
+        logger.info("command=" + command)
+        new_rand_command(bot, text)
     else:
         try:
             logger.info(command)
