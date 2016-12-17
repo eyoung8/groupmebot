@@ -1,5 +1,7 @@
 import requests
 import logging
+from .models import Bot, BotResponse, MultipleResponse
+
 logger = logging.getLogger('testlogger')
 
 def log_enter_exit(func):
