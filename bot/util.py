@@ -23,7 +23,6 @@ def new_bot_response(bot, command, response):
 
 @log_enter_exit
 def delete_bot_response(bot, command):
-    deleted = False
     try:
         logger.info("in try")
         bot_response = BotResponse.objects.get(command=command, bot=bot)
@@ -34,7 +33,9 @@ def delete_bot_response(bot, command):
         logger.info("deleted set to true")
     except:
         logger.info("in except block")
-        
+        deleted = False
+        logger.info("deleted set to false")
+    logger.info("deleted=" + str(deleted))
     return deleted
    
 @log_enter_exit
