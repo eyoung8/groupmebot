@@ -6,9 +6,9 @@ logger = logging.getLogger('testlogger')
 
 def log_enter_exit(func):
     def wrapper(*args, **kwargs):
-        logger.info('entering')
+        logger.info('entering ' + func.__name__)
         func(*args, **kwargs)
-        logger.info('exited')
+        logger.info(func.__name__ + ' exited')
     return wrapper
 
 @log_enter_exit
