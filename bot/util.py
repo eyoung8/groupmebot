@@ -90,6 +90,7 @@ def bot_help(bot, host):
 def delete_command(bot, text):
     command = text[0]
     deleted = delete_bot_response(bot, command)
+    logger.info("deleted results=" + str(deleted))
     if deleted:
         msg = "Command {} successfully deleted".format(command)
     else:
