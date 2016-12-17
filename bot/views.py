@@ -2,7 +2,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
 from django.shortcuts import render
 from .models import Bot, BotResponse, MultipleResponse
-from .util import send_response
+from .util import send_response, new_command, new_random_command, random_command, bot_help, delete_command, edit_command, command
 from django.views.decorators.csrf import csrf_exempt
 import logging
 import json
@@ -10,84 +10,20 @@ import json
 logger = logging.getLogger('testlogger')
 # Create your views here.
 
-def new_command(bot, text):
-    logger.info("entering new_command")
-    logger.info(type(text))
-    response = ' '.join(text[1:])
-    logger.info(response)
-    command = text[0]
-    logger.info(command)
-    if not command[0]=="/":
-        logger.info("incorrectly formatted new command")
-        send_response(bot.bot_id, "command must begin with /")
-    else:
-        logger.info("correctly formatted new command")
-        br = BotResponse(command=command, response=response, bot=bot)
-        br.save()
-        logger.info("new BotResponse saved")
-        send_response(bot.bot_id, "command {} successfully created".format(command))
-        logger.info("response sent to group")
-
-def new_rand_command(bot, text):
-    logger.info("entering new_rand_command")
-    response = ' '.join(text[1:])
-    logger.info(response)
-    command = text[0]
-    logger.info(command)
-
-    mr = MultipleResponse(command=command, response=response, bot=bot)
-    mr.save()
-    logger.info("new BotResponse saved")
-    send_response(bot.bot_id, "random command {} successfully created".format(command))
-    logger.info("response sent to group")
-
-def rand(bot, text):
-    logger.info("entering rand")
-    command = text[0]
-    logger.info("Determined command: " + command)
+def handle_command1(bot, command, text, host):
+    command_dict = {"/new"     : new_command(bot, text),
+                    "/edit"    : edit_command(bot, text),
+                    "/delete"  : delete_command(bot, text),
+                    "/newrand" : new_random_command(bot, text),
+                    "/random"  : random_command(bot, text),
+                    "/help"    : bot_help(bot, host),
+                    }
     try:
-        qs = MultipleResponse.objects.filter(bot=bot, command=command).order_by('?')
-        logger.info("Got queryset")
-        logger.info(qs)
-        if qs.count() > 0:
-            response = qs[0].response
-            logger.info("Got response: " + response)
-            send_response(bot.bot_id, response)
-            logger.info("Response sent")
-        else:
-            send_response(bot.bot_id, "command {} not found".format(command))
+        command_dict[command]
     except:
-        logger.info("queryset failed")
+        command(bot, command)
 
-def bot_help(bot, host):
-    logger.info("in help")
-    help_url ="".join(["https://", host, bot.get_absolute_url()])
-    logger.info("got help_url= " + help_url)
-    send_response(bot.bot_id, help_url)
- 
-def delete_bot_response(bot, text):
-    logger.info("entering delete bot response")
-    command = text[0]
-    logger.info("command found: " + command)
-    deleted = False
-    try:
-        bot_response = BotResponse.objects.get(command=command, bot=bot)
-        logger.info("BotResponse object found")
-        bot_response.delete()
-        deleted = True
-        logger.info("BotResponse object deleted")
-        send_response(bot.bot_id,"Command {} successfully deleted".format(command))
-        logger.info("Messaged chat")
-    except:
-        logger.info("delete exception")
-        send_response(bot.bot_id, "Command not found or issue deleting command")
-    return deleted
 
-def edit_bot(bot, text):
-    logger.info("entering edit")
-    deleted = delete_bot_response(bot, text)
-    if deleted:
-        new_command(bot, text)
 
 def handle_command(bot, command, text, host):
     if command == "/new":
@@ -98,16 +34,16 @@ def handle_command(bot, command, text, host):
         bot_help(bot, host)
     elif command == "/delete":
         logger.info("command=" + command)
-        delete_bot_response(bot, text)
+        delete_command(bot, text)
     elif command == "/edit":
         logger.info("command=" + command)
-        edit_bot(bot,text)
+        edit_command(bot,text)
     elif command == "/random":
         logger.info("command=" + command)
-        rand(bot, text)
+        random_command(bot, text)
     elif command == "/newrand":
         logger.info("command=" + command)
-        new_rand_command(bot, text)
+        new_random_command(bot, text)
     else:
         try:
             logger.info(command)
@@ -141,8 +77,7 @@ def get_message(request):
                 command = split_text[0]
                 handle_command(bot, command, split_text[1:], host)
         except:
-            logger.info("get_message exception")
-            
+            logger.info("get_message exception")        
     return HttpResponse("don't come here")
 
 def bot_detail(request, group_id):
@@ -154,13 +89,13 @@ def bot_detail(request, group_id):
                      ("/edit",   "Edits an existing command in the format '/edit /{existing_command} {new command response}'"),
                      ("/delete", "Deletes an existing command in the format '/delete /{existing_command}'"),
                      ("/newrand","Creates a new command in the same format of /new but /newrand commands have multiple responses that are randomly selected"),
-                     ("/random", "Calls a random /newrand command in the format '/random {newrand_command}'"),]
+                     ("/random", "Calls a random /newrand command in the format '/random {newrand_command}'"),
+                     ]
         context = {"bot_name"  : bot.name,
                    "responses" : responses,
                    "built_ins" : built_ins,
                     }
         return render(request, "bot_detail.html", context)
-
     except:
         return HttpResponse("Bot does not exist")
 
