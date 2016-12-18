@@ -1,2 +1,2 @@
-web: gunicorn groupmebot.wsgi --log-file -
+web: python manage.py collectstatic --noinput; gunicorn groupmebot.wsgi --log-file -
 
