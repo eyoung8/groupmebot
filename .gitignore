@@ -1,8 +1,6 @@
 venv
 *.pyc
 staticfiles
-static
-static/admin
 .DS_Store
 .env
 db.sqlite3
