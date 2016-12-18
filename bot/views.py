@@ -1,9 +1,11 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.views import View
+from django.views.decorators.csrf import csrf_exempt
+
 from .models import Bot, BotResponse, MultipleResponse
 from .util import send_response, new_command, new_random_command, random_command, bot_help, delete_command, edit_command, command
-from django.views.decorators.csrf import csrf_exempt
 import logging
 import json
 
@@ -99,7 +101,8 @@ def bot_detail(request, group_id):
     except:
         return HttpResponse("Bot does not exist")
 
-
-
+class SignUpView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, "bot_home.html", {})
 
 
