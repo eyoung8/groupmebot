@@ -6,6 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from .models import Bot, BotResponse, MultipleResponse
 from .util import send_response, new_command, new_random_command, random_command, bot_help, delete_command, edit_command, command
+from .forms import BotForm
 import logging
 import json
 
@@ -103,6 +104,18 @@ def bot_detail(request, group_id):
 
 class SignUpView(View):
     def get(self, request, *args, **kwargs):
-        return render(request, "bot_home.html", {})
+        bot_form = BotForm()
+        context = {
+            "bot_form" : bot_form
+        }
+        return render(request, "bot_home.html", context)
+
+    def post(self, request, *args, **kwargs):
+        bot_form = BotForm(request.POST, request.FILES)
+        if bot_form.is_valid():
+            bot_form.save()
+            return HttpResponse("Bot created!")
+        else:
+            return HttpResponse("Bot not created!")
 
 
