@@ -116,6 +116,10 @@ class SignUpView(View):
         bot_form = BotForm(request.POST, request.FILES)
         if bot_form.is_valid():
             bot_form.save()
+            bot_id = bot_form.cleaned_data.get("bot_id")
+            bot_name = bot_form.cleaned_data.get("name")
+            send_response(bot_id, "Hello, I'm {}, your new chat bot!".format(bot_name))
+            send_response(bot_id, "For instructions on how to use me type '/help' into chat.")
             return HttpResponse("Bot created!")
         else:
             return HttpResponse("Bot not created!")
