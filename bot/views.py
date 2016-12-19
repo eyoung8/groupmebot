@@ -45,12 +45,12 @@ def bot_detail(request, group_id):
         bot = Bot.objects.get(group_id=group_id)
         responses = BotResponse.objects.filter(bot__group_id__iexact=group_id)
         random_commands = MultipleResponse.objects.filter(bot__group_id__iexact=group_id).order_by('command').values('command').distinct()
-        built_ins = [("/new" ,   "Create a new command by sending '/new /{new_command} {new command response}'"),
+        built_ins = [("/new" ,   "Create a new command\nex: '/new /command response'"),
                      ("/help",   "Gives a url to the bot's help page"),
-                     ("/edit",   "Edits an existing command in the format '/edit /{existing_command} {new command response}'"),
-                     ("/delete", "Deletes an existing command in the format '/delete /{existing_command}'"),
-                     ("/newrand","Creates a new command in the same format of /new but /newrand commands have multiple responses that are randomly selected"),
-                     ("/random", "Calls a random /newrand command in the format '/random {newrand_command}'"),
+                     ("/edit",   "Edits an existing command\nex: '/edit /command new_response'"),
+                     ("/delete", "Deletes an existing command\nex: '/delete /command'"),
+                     ("/newrand","Creates a new command with multiple possible responses\nex: /newrand command response\nex2: /newrand command response2"),
+                     ("/random", "Calls a random /newrand command\nex: '/random newrand_command'"),
                      ]
         context = {"bot_name"  : bot.name,
                    "responses" : responses,
