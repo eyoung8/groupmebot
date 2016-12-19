@@ -27,7 +27,7 @@ def handle_command1(bot, command, text, host):
             cmd = command_dict[command]
             cmd(bot, text)
         except:
-            command(bot, command)
+            send_command_response(bot, command)
 
 
 
