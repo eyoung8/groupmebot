@@ -111,6 +111,21 @@ def edit_command(bot, text):
     send_response(bot.bot_id, msg)
 
 
+def handle_command(bot, command, text, host):
+    if command=="/help":
+        bot_help(bot, host)
+    else:
+        command_dict = {"/new"     : new_command,
+                        "/edit"    : edit_command,
+                        "/delete"  : delete_command,
+                        "/newrand" : new_random_command,
+                        "/random"  : random_command,   
+                        }
+        try:
+            cmd = command_dict[command]
+            cmd(bot, text)
+        except:
+            send_command_response(bot, command)
 
 
 

@@ -5,7 +5,7 @@ from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 
 from .models import Bot, BotResponse, MultipleResponse
-from .util import send_response, new_command, new_random_command, random_command, bot_help, delete_command, edit_command, send_command_response
+from .util import handle_command, send_response
 from .forms import BotForm
 import logging
 import json
@@ -13,52 +13,6 @@ import json
 logger = logging.getLogger('testlogger')
 # Create your views here.
 
-def handle_command1(bot, command, text, host):
-    if command=="/help":
-        bot_help(bot, host)
-    else:
-        command_dict = {"/new"     : new_command,
-                        "/edit"    : edit_command,
-                        "/delete"  : delete_command,
-                        "/newrand" : new_random_command,
-                        "/random"  : random_command,   
-                        }
-        try:
-            cmd = command_dict[command]
-            cmd(bot, text)
-        except:
-            send_command_response(bot, command)
-
-
-
-def handle_command(bot, command, text, host):
-    if command == "/new":
-        logger.info("command=" + command)
-        new_command(bot, text)
-    elif command == "/help":
-        logger.info("command=" + command)
-        bot_help(bot, host)
-    elif command == "/delete":
-        logger.info("command=" + command)
-        delete_command(bot, text)
-    elif command == "/edit":
-        logger.info("command=" + command)
-        edit_command(bot,text)
-    elif command == "/random":
-        logger.info("command=" + command)
-        random_command(bot, text)
-    elif command == "/newrand":
-        logger.info("command=" + command)
-        new_random_command(bot, text)
-    else:
-        try:
-            logger.info(command)
-            bot_response = BotResponse.objects.get(bot=bot, command=command).response
-            logger.info(bot_response)
-            send_response(bot.bot_id, bot_response)
-        except:
-            logger.info("handle_command exception")
-            
 
 @csrf_exempt
 def get_message(request):
@@ -81,7 +35,7 @@ def get_message(request):
                 logger.info("found command")
                 split_text = text.split()
                 command = split_text[0]
-                handle_command1(bot, command, split_text[1:], host)
+                handle_command(bot, command, split_text[1:], host)
         except:
             logger.info("get_message exception")        
     return HttpResponse("don't come here")
