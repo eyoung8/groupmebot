@@ -1,14 +1,28 @@
-<h1>{{ bot_name }}</h1>
-<h2><b>Commands:</b></h2>
-<h3>Built In:</h3>
-<p>
-{% for pair in built_ins %}
-    {{ pair.0 }} : {{ pair.1 }} </br>
-{% endfor %}
-</p>
-<h3>Custom:</h3>
-<p>
-{% for response in responses %}
-    {{ response.command }} : {{ response.response }} </br>
-{% endfor %}
-</p>
+{% extends "base.html" %}
+{% block content %}
+
+<div class="page-wrap">
+    <div class="row" align="left">
+        <div class="col-sm-10">
+            <h1>{{ bot_name }}</h1>
+            <h2><b>Commands:</b></h2>
+            <h3>Built In:</h3>
+            <p>
+            {% for pair in built_ins %}
+                {{ pair.0 }} : {{ pair.1 }} </br>
+            {% endfor %}
+            </p>
+            <h3>Custom:</h3>
+            <p>
+            {% for response in responses %}
+                {{ response.command }} : {{ response.response }} </br>
+            {% endfor %}
+            </p>
+            <h3>Random:</h3>
+            {% for random_command in random_commands %}
+                {{ random_command.command }} : {{ random_command.response }} </br>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

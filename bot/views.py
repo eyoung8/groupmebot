@@ -87,6 +87,7 @@ def bot_detail(request, group_id):
     try:
         bot = Bot.objects.get(group_id=group_id)
         responses = BotResponse.objects.filter(bot__group_id__iexact=group_id)
+        random_commands = MultipleResponse.objects.filter(bot__group_id__iexact=group_id)
         built_ins = [("/new" ,   "Create a new command by sending '/new /{new_command} {new command response}'"),
                      ("/help",   "Gives a url to the bot's help page"),
                      ("/edit",   "Edits an existing command in the format '/edit /{existing_command} {new command response}'"),
@@ -97,6 +98,7 @@ def bot_detail(request, group_id):
         context = {"bot_name"  : bot.name,
                    "responses" : responses,
                    "built_ins" : built_ins,
+                   "random_commands": random_commands,
                     }
         return render(request, "bot_detail.html", context)
     except:
@@ -118,4 +120,5 @@ class SignUpView(View):
         else:
             return HttpResponse("Bot not created!")
 
-
+def create_bot_instructions(request):
+    return render(request, "bot_create_instructions.html", {})

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Create Bot Instructions
+{% endblock title %}
+
+{% block content %}
+<div class="page-wrap">
+    <div class="row" align="left">
+        <div class="col-sm-12">
+            <h3>Instructions:</h3>
+            <p><b>1. Go to: </b><a href="https://dev.groupme.com/bots">https://dev.groupme.com/bots</a></p>
+            <p><b>2. Click "Create"</b></p>
+            <p><b>3. Fill out bot creation form and set callback URL to: </b>https://responsebot.herokuapp.com/bot/receive/</p>
+            <img src="{% static "signup_instructions/fill.png" %}" class='img-responsive' />
+            <p><b>4. Submit form</b></p>
+            <p><b>5. Click on newly made bot (anywhere in grey area)</b></p>
+            <img src="{% static "signup_instructions/click_bot.png" %}" class='img-responsive' />
+            </br>
+            <p><b>6. Copy bot name, bot id, and group id into the <a href="{% url 'sign_up' %}">form</a></b></p>
+            <img src="{% static "signup_instructions/get_info.png" %}" class='img-responsive' />
+        </div>
+    </div>
+</div>
+{% endblock content %}

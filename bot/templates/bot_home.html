@@ -1,16 +1,26 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
+{% load static %}
 
 {% block title %}
 Sign Up
 {% endblock title %}
 
+
 {% block content %}
 <div class="page-wrap">
 
 
- <h1> Sign up for a free, programmable GroupMe bot!</h1>
+    <h1>Sign up for a free, programmable GroupMe bot!</h1>
+    
+    
+
+
 <div class="row" align="left">
+    <div class="col-sm-offset-4 col-sm-4">
+        <p><b>1. Create a GroupMe bot: </b> <a href="{% url 'create_bot_instructions' %}">Guide</a>.</p>
+        <p><b>2. Fill out form below and submit.</b></p>
+    </div>
     <div class="col-sm-offset-4 col-sm-4">
         <form method="POST" action='' enctype='multipart/form-data'> {% csrf_token %}
             {{ bot_form | crispy }}
