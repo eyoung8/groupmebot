@@ -27,6 +27,7 @@ def handle_command1(bot, command, text, host):
             cmd = command_dict[command]
             cmd(bot, text)
         except:
+            logger.info("in exception for command")
             command(bot, command)
 
 
