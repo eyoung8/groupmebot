@@ -5,7 +5,7 @@ from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 
 from .models import Bot, BotResponse, MultipleResponse
-from .util import send_response, new_command, new_random_command, random_command, bot_help, delete_command, edit_command, command
+from .util import send_response, new_command, new_random_command, random_command, bot_help, delete_command, edit_command, send_command_response
 from .forms import BotForm
 import logging
 import json
@@ -27,7 +27,6 @@ def handle_command1(bot, command, text, host):
             cmd = command_dict[command]
             cmd(bot, text)
         except:
-            logger.info("in exception for command")
             command(bot, command)
 
 

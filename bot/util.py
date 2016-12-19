@@ -55,7 +55,7 @@ def new_command(bot, text):
         send_response(bot.bot_id, "command {} successfully created".format(command))
 
 @log_enter_exit
-def command(bot, command):
+def send_command_response(bot, command):
     try:
         bot_response = BotResponse.objects.get(bot=bot, command=command).response
         send_response(bot.bot_id, bot_response)
