@@ -14,18 +14,18 @@
             <h3>Built In:</h3>
             <p>
             {% for pair in built_ins %}
-                {{ pair.0 }} : {{ pair.1 }} </br>
+                <b>{{ pair.0 }}</b> : {{ pair.1 }} </br>
             {% endfor %}
             </p>
             <h3>Custom:</h3>
             <p>
             {% for response in responses %}
-                {{ response.command }} : {{ response.response }} </br>
+                <b>{{ response.command }}</b> : {{ response.response }} </br>
             {% endfor %}
             </p>
             <h3>Random:</h3>
             {% for random_command in random_commands %}
-                {{ random_command.command }} : {{ random_command.response }} </br>
+                <b>/random {{ random_command.command }}</b> </br>
             {% endfor %}
         </div>
     </div>

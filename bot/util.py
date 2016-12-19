@@ -110,7 +110,7 @@ def edit_command(bot, text):
         msg = "Command {} could not be found".format(command)
     send_response(bot.bot_id, msg)
 
-
+@log_enter_exit
 def handle_command(bot, command, text, host):
     if command=="/help":
         bot_help(bot, host)

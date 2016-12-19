@@ -44,7 +44,7 @@ def bot_detail(request, group_id):
     try:
         bot = Bot.objects.get(group_id=group_id)
         responses = BotResponse.objects.filter(bot__group_id__iexact=group_id)
-        random_commands = MultipleResponse.objects.filter(bot__group_id__iexact=group_id)
+        random_commands = MultipleResponse.objects.filter(bot__group_id__iexact=group_id).order_by('command').values('command').distinct()
         built_ins = [("/new" ,   "Create a new command by sending '/new /{new_command} {new command response}'"),
                      ("/help",   "Gives a url to the bot's help page"),
                      ("/edit",   "Edits an existing command in the format '/edit /{existing_command} {new command response}'"),
