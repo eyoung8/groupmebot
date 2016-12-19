@@ -17,11 +17,11 @@ def handle_command1(bot, command, text, host):
     if command=="/help":
         bot_help(bot, host)
     else:
-        command_dict = {"/new"     : new_command(bot, text),
-                        "/edit"    : edit_command(bot, text),
-                        "/delete"  : delete_command(bot, text),
-                        "/newrand" : new_random_command(bot, text),
-                        "/random"  : random_command(bot, text),   
+        command_dict = {"/new"     : new_command,
+                        "/edit"    : edit_command,
+                        "/delete"  : delete_command,
+                        "/newrand" : new_random_command,
+                        "/random"  : random_command,   
                         }
         try:
             cmd = command_dict[command]
