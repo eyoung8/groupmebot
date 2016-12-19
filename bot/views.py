@@ -14,17 +14,20 @@ logger = logging.getLogger('testlogger')
 # Create your views here.
 
 def handle_command1(bot, command, text, host):
-    command_dict = {"/new"     : new_command(bot, text),
-                    "/edit"    : edit_command(bot, text),
-                    "/delete"  : delete_command(bot, text),
-                    "/newrand" : new_random_command(bot, text),
-                    "/random"  : random_command(bot, text),
-                    "/help"    : bot_help(bot, host),
-                    }
-    try:
-        command_dict[command]
-    except:
-        command(bot, command)
+    if command=="/help":
+        bot_help(bot, host)
+    else:
+        command_dict = {"/new"     : new_command(bot, text),
+                        "/edit"    : edit_command(bot, text),
+                        "/delete"  : delete_command(bot, text),
+                        "/newrand" : new_random_command(bot, text),
+                        "/random"  : random_command(bot, text),   
+                        }
+        try:
+            cmd = command_dict[command]
+            cmd(bot, text)
+        except:
+            command(bot, command)
 
 
 
@@ -78,7 +81,7 @@ def get_message(request):
                 logger.info("found command")
                 split_text = text.split()
                 command = split_text[0]
-                handle_command(bot, command, split_text[1:], host)
+                handle_command1(bot, command, split_text[1:], host)
         except:
             logger.info("get_message exception")        
     return HttpResponse("don't come here")
