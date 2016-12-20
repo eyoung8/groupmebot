@@ -34,7 +34,7 @@ def get_message(request):
             if text and text[0] == "/":
                 logger.info("found command")
                 split_text = text.split()
-                command = split_text[0]
+                command = split_text[0].lower()
                 handle_command(bot, command, split_text[1:], host)
         except:
             logger.info("get_message exception")        

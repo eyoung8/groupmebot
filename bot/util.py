@@ -47,7 +47,7 @@ def new_multiple_response(bot, command, response):
 @log_enter_exit
 def new_command(bot, text):
     response = ' '.join(text[1:])
-    command = text[0]
+    command = text[0].lower()
     if not command[0]=="/":
         send_response(bot.bot_id, "command must begin with /")
     else:
@@ -65,7 +65,7 @@ def send_command_response(bot, command):
 @log_enter_exit
 def new_random_command(bot, text):
     response = ' '.join(text[1:])
-    command = text[0]
+    command = text[0].lower()
     new_multiple_response(bot, command, response)
     send_response(bot.bot_id, "random command {} successfully created".format(command))
 
