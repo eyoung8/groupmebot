@@ -71,7 +71,7 @@ def new_random_command(bot, text):
 
 @log_enter_exit
 def random_command(bot, text):
-    command = text[0]
+    command = text[0].lower()
     try:
         qs = MultipleResponse.objects.filter(bot=bot, command=command).order_by('?')
         if qs.count() > 0:
