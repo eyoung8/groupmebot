@@ -19,12 +19,12 @@ Sign Up
     <div class="row" align="left">
         <div class="col-sm-offset-4 col-sm-4">
             <h3>1. Add a bot to your chat: <a href="{% url 'create_bot_instructions' %}">Guide</a>.</h3>
-            <h3>2. Activate bot by submitting form below:</h3>
+            <h3>2. Activate bot:</h3>
         </div>
         <div class="col-sm-offset-4 col-sm-4">
             <form method="POST" action='' enctype='multipart/form-data'> {% csrf_token %}
                 {{ bot_form | crispy }}
-                <input type='submit' class='btn btn-primary' value='Create Bot' />
+                <input type='submit' class='btn btn-primary' value='Activate Bot' />
             </form>
             <p>* indicates required field</p>
         </div>
