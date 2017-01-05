@@ -83,3 +83,14 @@ class SignUpView(View):
 
 def create_bot_instructions(request):
     return render(request, "bot_create_instructions.html", {})
+
+def guide(request):
+    return render(request, "bot_guide.html", {})
+
+def groupme_upload(request):
+    return render(request, "groupme_upload_guide.html", {})
+
+
+
+
+

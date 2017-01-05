@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+GroupMe Upload Guide
+{% endblock title %}
+
+{% block content %}
+<div class="page-wrap">
+    <div class="row" align="left">
+        <div class="col-sm-12">
+            <h2>How to upload to GroupMe:</h2>
+            <h3>Upload to GroupMe by posting an image:</h3>
+            <img src="{% static "guide/image upload.png" %}" class='img-responsive' />
+            <h3>Right click > select "Copy Image Address"</h3>
+            <img src="{% static "guide/image url.png" %}" class='img-responsive' />
+            <h3>Use with a bot command:</h3>
+            <img src="{% static "guide/random image.png" %}" class='img-responsive' />
+            <h3>Congratulations! It works:</h3>
+            <img src="{% static "guide/random2.png" %}" class='img-responsive' />
+        </div>
+    </div>
+    </div>
+</div>
+{% endblock content %}
