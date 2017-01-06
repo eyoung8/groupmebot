@@ -8,27 +8,31 @@
 {% block content %}
 
 <div class="container-fluid">
-    <div class="row" align="left">
-        <div class="col-xs-10">
-            <h1>{{ bot_name }}</h1>
-            <h2><a href="{% url 'guide' %}">General Bot Guide</a></h2>
-            <h2><b>Commands:</b></h2>
-            <h3>Built In:</h3>
-            <p>
-            {% for pair in built_ins %}
-                <b>{{ pair.0 }}</b> : {{ pair.1 }} </br>
-            {% endfor %}
-            </p>
-            <h3>Custom:</h3>
-            <p>
-            {% for response in responses %}
-                <b>{{ response.command }}</b> : {{ response.response }} </br>
-            {% endfor %}
-            </p>
-            <h3>Random:</h3>
-            {% for random_command in random_commands %}
-                <b>/random {{ random_command.command }}</b> </br>
-            {% endfor %}
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row" align="left">
+                <div class="col-xs-10">
+                    <h1>{{ bot_name }}</h1>
+                    <h2><a href="{% url 'guide' %}">General Bot Guide</a></h2>
+                    <h2><b>Commands:</b></h2>
+                    <h3>Built In:</h3>
+                    <p>
+                        {% for pair in built_ins %}
+                        <b>{{ pair.0 }}</b> : {{ pair.1 }} </br>
+                        {% endfor %}
+                    </p>
+                    <h3>Custom:</h3>
+                    <p>
+                        {% for response in responses %}
+                        <b>{{ response.command }}</b> : {{ response.response }} </br>
+                        {% endfor %}
+                    </p>
+                    <h3>Random:</h3>
+                    {% for random_command in random_commands %}
+                    <b>/random {{ random_command.command }}</b> </br>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </div>
 </div>

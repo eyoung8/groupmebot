@@ -9,46 +9,49 @@ Bot Guide
 
 
 <div class="container-fluid">
-    <div class="row" align="left">
-        <div class="col-sm-10 col-sm-offset-1">
-            <h2>Commands:</h2>
-            <h4>/help: bot will post a link to a list of its commands.</h4>
-            <h4>/new [/command] [response]: creates new command with response.</h4>
-            <h4>/edit [/command] [response]: edits existing command with new response.</h4>
-            <h4>/delete [/command]: deletes existing command.</h4>
-            <h4>/newrand [command] [response]: creates a new random command whose responses will be selected from randomly (more than one response may exist per each random command).</h4>
-            <h4>/random [command]: bot responds with randomly chosen response from random commands with this name.</h4>
-        </div>
-    </div>
-    <div class="row" align="left">
-        <div class="col-sm-offset-1 col-sm-5 ">
-            <h3>/new command:</h3>
-            <img src="{% static "guide/new1.png" %}" class='img-responsive' />
-            <h3>Executing command:</h3>
-            <img src="{% static "guide/command1.png" %}" class='img-responsive' />
-            <h3>Also works for images using the image url:</h3>
-            <img src="{% static "guide/new2.png" %}" class='img-responsive' />
-            <h3>Execution is the same:</h3>
-            <img src="{% static "guide/command2.png" %}" class='img-responsive' />
-            <h4> * Not all image hosting services will work. Best to use <a href="{% url 'groupme_upload' %}">GroupMe's.</a></h4>
-            <h3>/help:</h3>
-            <img src="{% static "guide/help.png" %}" class='img-responsive' />
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row" align="left">
+                <div class="col-sm-10 col-sm-offset-1">
+                    <h2>Commands:</h2>
+                    <h4>/help: bot will post a link to a list of its commands.</h4>
+                    <h4>/new [/command] [response]: creates new command with response.</h4>
+                    <h4>/edit [/command] [response]: edits existing command with new response.</h4>
+                    <h4>/delete [/command]: deletes existing command.</h4>
+                    <h4>/newrand [command] [response]: creates a new random command whose responses will be selected from randomly (more than one response may exist per each random command).</h4>
+                    <h4>/random [command]: bot responds with randomly chosen response from random commands with this name.</h4>
+                </div>
+            </div>
+            <div class="row" align="left">
+                <div class="col-sm-offset-1 col-sm-5 ">
+                    <h3>/new command:</h3>
+                    <img src="{% static "guide/new1.png" %}" class='img-responsive' />
+                    <h3>Executing command:</h3>
+                    <img src="{% static "guide/command1.png" %}" class='img-responsive' />
+                    <h3>Also works for images using the image url:</h3>
+                    <img src="{% static "guide/new2.png" %}" class='img-responsive' />
+                    <h3>Execution is the same:</h3>
+                    <img src="{% static "guide/command2.png" %}" class='img-responsive' />
+                    <h4> * Not all image hosting services will work. Best to use <a href="{% url 'groupme_upload' %}">GroupMe's.</a></h4>
+                    <h3>/help:</h3>
+                    <img src="{% static "guide/help.png" %}" class='img-responsive' />
 
+                </div>
+                <div class="col-sm-5"> 
+                    <h3>/edit command:</h3>
+                    <img src="{% static "guide/edit.png" %}" class='img-responsive' />
+                    <h3>/delete command:</h3>
+                    <img src="{% static "guide/delete.png" %}" class='img-responsive' />
+                </br>
+                <h3>/newrand command:</h3>
+                <img src="{% static "guide/newrand.png" %}" class='img-responsive' />
+                <h3>/newrand can create multiple responses to the same command:</h3>
+                <img src="{% static "guide/random image.png" %}" class='img-responsive' />
+                <h3>/random command – responses are randomly chosen:</h3>
+                <img src="{% static "guide/random2.png" %}" class='img-responsive' />
+                <img src="{% static "guide/random1.png" %}" class='img-responsive' />
+            </div>
         </div>
-        <div class="col-sm-5"> 
-            <h3>/edit command:</h3>
-            <img src="{% static "guide/edit.png" %}" class='img-responsive' />
-            <h3>/delete command:</h3>
-            <img src="{% static "guide/delete.png" %}" class='img-responsive' />
-            </br>
-            <h3>/newrand command:</h3>
-            <img src="{% static "guide/newrand.png" %}" class='img-responsive' />
-            <h3>/newrand can create multiple responses to the same command:</h3>
-            <img src="{% static "guide/random image.png" %}" class='img-responsive' />
-            <h3>/random command – responses are randomly chosen:</h3>
-            <img src="{% static "guide/random2.png" %}" class='img-responsive' />
-            <img src="{% static "guide/random1.png" %}" class='img-responsive' />
-        </div>
-    </div>
+    </div></div>
 </div>
 {% endblock content %}

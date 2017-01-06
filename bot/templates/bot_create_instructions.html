@@ -7,20 +7,24 @@ Create Bot Instructions
 
 {% block content %}
 <div class="container-fluid">
-    <div class="row" align="left">
-        <div class="col-sm-7 col-sm-offset-2">
-            <h1>Instructions:</h1>
-            <h4>1. Go to: </b><a href="https://dev.groupme.com/bots">https://dev.groupme.com/bots</a></h4>
-            <h4>2. Click "Create"</h4>
-            <h4>3. Fill out bot creation form and set callback URL to: https://responsebot.herokuapp.com/bot/receive/</h4>
-            <img src="{% static "signup_instructions/fill.png" %}" class='img-responsive' />
-            <h4>4. Submit form</h4>
-            <h4>5. Click on newly made bot (anywhere in grey area)</h4>
-            <img src="{% static "signup_instructions/click_bot.png" %}" class='img-responsive' />
-            </br>
-            <h4>6. Copy bot name, bot id, and group id into the <a href="{% url 'sign_up' %}">form</a></h4>
-            <img src="{% static "signup_instructions/get_info.png" %}" class='img-responsive' />
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row" align="left">
+                <div class="col-sm-7 col-sm-offset-1">
+                    <h1>Instructions:</h1>
+                    <h4>1. Go to: </b><a href="https://dev.groupme.com/bots">https://dev.groupme.com/bots</a></h4>
+                    <h4>2. Click "Create"</h4>
+                    <h4>3. Fill out bot creation form and set callback URL to: https://responsebot.herokuapp.com/bot/receive/</h4>
+                    <img src="{% static "signup_instructions/fill.png" %}" class='img-responsive' />
+                    <h4>4. Submit form</h4>
+                    <h4>5. Click on newly made bot (anywhere in grey area)</h4>
+                    <img src="{% static "signup_instructions/click_bot.png" %}" class='img-responsive' />
+                </br>
+                <h4>6. Copy bot name, bot id, and group id into the <a href="{% url 'sign_up' %}">form</a></h4>
+                <img src="{% static "signup_instructions/get_info.png" %}" class='img-responsive' />
+            </div>
         </div>
     </div>
+</div>
 </div>
 {% endblock content %}
