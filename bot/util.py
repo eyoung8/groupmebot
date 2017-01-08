@@ -58,6 +58,7 @@ def new_command(bot, text):
 def send_command_response(bot, command):
     try:
         bot_response = BotResponse.objects.get(bot=bot, command=command).response
+        logger.info("response = {}".format(bot_response))
         send_response(bot.bot_id, bot_response)
     except:
         pass

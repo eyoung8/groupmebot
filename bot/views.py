@@ -16,25 +16,20 @@ logger = logging.getLogger('testlogger')
 
 @csrf_exempt
 def get_message(request):
-    logger.info("in")
     host = request.get_host()
     if request.method == "POST":
-        logger.info("in2")
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
         group_id = body["group_id"]
         logger.info(group_id)
         try:
-            logger.info("try1")
             bot = Bot.objects.get(group_id=group_id)
-            logger.info("try2")
             text = body["text"]
-            logger.info("try3")
-            logger.info(bot.name)
+            logger.info("text = {}".format(text))
             if text and text[0] == "/":
-                logger.info("found command")
                 split_text = text.split()
                 command = split_text[0].lower()
+                logger.info("command = {}".format(command))
                 handle_command(bot, command, split_text[1:], host)
         except:
             logger.info("get_message exception")        
